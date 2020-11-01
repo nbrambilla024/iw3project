@@ -50,7 +50,7 @@ public class ProductoRestController {
 	@GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Producto>> list() {
 		try {
-			log.debug("getProducto");
+			log.debug("GetMapping: Una lista de productos ");
 			return new ResponseEntity<List<Producto>>(productoBusiness.list(), HttpStatus.OK);
 
 		} catch (BusinessException e) {
