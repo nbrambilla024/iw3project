@@ -14,10 +14,10 @@ import iua.edu.ar.model.persistence.OrdenRepository;
 
 @Service
 public class OrdenBusiness implements IOrdenBusiness {
-	
+
 	@Autowired
 	private OrdenRepository ordenDAO;
-	
+
 	@Override
 	public Orden load(Long id) throws NotFoundException, BusinessException {
 		Optional<Orden> op;
@@ -55,7 +55,7 @@ public class OrdenBusiness implements IOrdenBusiness {
 		try {
 			ordenDAO.deleteById(id);
 		} catch (EmptyResultDataAccessException el) {
-			throw new NotFoundException("No se encuentra el producto id = " + id + ".");
+			throw new NotFoundException("No se encuentra la orden con id = " + id + ".");
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -67,6 +67,39 @@ public class OrdenBusiness implements IOrdenBusiness {
 		load(orden.getId());
 		return ordenDAO.save(orden);
 
+	}
+
+	@Override
+	public Orden load(String codigoExterno) throws NotFoundException, BusinessException {
+		Optional<Orden> op;
+		try {
+			op = ordenDAO.findFirstByCodigoExterno(codigoExterno);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		if (!op.isPresent()) {
+			throw new NotFoundException(
+					"El producto con código externo " + codigoExterno + " no se encuentra en la BD");
+		}
+		return op.get();
+	}
+
+	@Override
+	public Orden asegurarOrden(Orden orden) throws BusinessException {
+		Orden o = null;
+		try {
+			o = load(orden.getCodigoExterno());
+			o.setNumeroOrden(orden.getNumeroOrden());
+			o.setCamion(orden.getCamion());
+			o.setChofer(orden.getChofer());
+			o.setCliente(orden.getCliente());
+			o.setProducto(orden.getProducto());
+
+			// Colocar aquí los datos recibidos no opcionales
+		} catch (NotFoundException e) {
+			o = new Orden(orden);
+		}
+		return ordenDAO.save(o);
 	}
 
 }

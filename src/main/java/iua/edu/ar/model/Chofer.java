@@ -2,14 +2,11 @@ package iua.edu.ar.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,10 +27,13 @@ public class Chofer implements Serializable {
 
 	@Column(length = 100, nullable = true)
 	private double documento;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "camion_id")
-	private Camion camion;
+
+	/*
+	 * Comento para probar algo 
+	 * @ManyToOne(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name = "camion_id") private Camion camion;
+	 */
 
 	public String getNombre() {
 		return nombre;
@@ -67,12 +67,4 @@ public class Chofer implements Serializable {
 		this.id = id;
 	}
 
-	public Camion getCamion() {
-		return camion;
-	}
-
-	public void setCamion(Camion camion) {
-		this.camion = camion;
-	}
-	
 }

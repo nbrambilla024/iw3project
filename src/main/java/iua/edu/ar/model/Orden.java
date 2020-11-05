@@ -24,7 +24,7 @@ public class Orden implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private double numeroOrden;
 
 	@Column(length = 100)
@@ -43,6 +43,23 @@ public class Orden implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Camion camion;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Chofer chofer;
+
+	// External code
+
+	@Column(length = 50, nullable = true, unique = true)
+	private String codigoExterno;
+
+	public Orden(Orden orden) {
+		this.codigoExterno = orden.codigoExterno;
+		this.numeroOrden = orden.numeroOrden;
+		this.camion = orden.getCamion();
+		this.chofer = orden.getChofer();
+		this.cliente = orden.getCliente();
+		this.producto = orden.getProducto();
+	}
 
 	// Getters and setters
 
@@ -100,6 +117,22 @@ public class Orden implements Serializable {
 
 	public void setCamion(Camion camion) {
 		this.camion = camion;
+	}
+
+	public Chofer getChofer() {
+		return chofer;
+	}
+
+	public void setChofer(Chofer chofer) {
+		this.chofer = chofer;
+	}
+
+	public String getCodigoExterno() {
+		return codigoExterno;
+	}
+
+	public void setCodigoExterno(String codigoExterno) {
+		this.codigoExterno = codigoExterno;
 	}
 
 }
