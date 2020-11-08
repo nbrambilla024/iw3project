@@ -1,6 +1,5 @@
 package iua.edu.ar.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,16 +13,24 @@ import javax.persistence.Table;
 public class SistemaExterno {
 
 	public String checkBasicData() {
-		if (getOrden().getNumeroOrden() <= 0)
-			return "El atributo 'NumeroOrden' debe ser mayor a 0";
-		
+
 		if (getOrden() == null)
-			return "El atributo 'orden' es obligatorio";
+			return "El atributo 'Orden' es obligatorio";
+
+		if (getOrden().getChofer() == null)
+			return "El atributo 'Chofer' es obligatorio";
+
+		if (getOrden().getCamion() == null)
+			return "El atributo 'Camion' es obligatorio";
+		
+		if (getOrden().getCliente() == null)
+			return "El atributo 'Cliente' es obligatorio";
 
 		if (getOrden().getCodigoExterno() == null || getOrden().getCodigoExterno().trim().length() == 0)
 			return "El atributo 'orden.codigoExterno' es obligatorio";
 
 		return null;
+
 	}
 
 	@Id
@@ -31,14 +38,28 @@ public class SistemaExterno {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "id_orden")
+	@JoinColumn(name = "orden_id")
 	private Orden orden;
 
-	@Column(length = 256, nullable = true)
-	private String comentarios;
+	@ManyToOne
+	@JoinColumn(name = "camion_id")
+	private Camion camion;
 
-	@Column(columnDefinition = "TINYINT NOT NULL DEFAULT 0")
-	private boolean recibida;
+	@ManyToOne
+	@JoinColumn(name = "chofer_id")
+	private Chofer chofer;
+
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Orden getOrden() {
 		return orden;
@@ -48,20 +69,28 @@ public class SistemaExterno {
 		this.orden = orden;
 	}
 
-	public String getComentarios() {
-		return comentarios;
+	public Camion getCamion() {
+		return camion;
 	}
 
-	public void setComentarios(String comentarios) {
-		this.comentarios = comentarios;
+	public void setCamion(Camion camion) {
+		this.camion = camion;
 	}
 
-	public boolean isRecibida() {
-		return recibida;
+	public Chofer getChofer() {
+		return chofer;
 	}
 
-	public void setRecibida(boolean recibida) {
-		this.recibida = recibida;
+	public void setChofer(Chofer chofer) {
+		this.chofer = chofer;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

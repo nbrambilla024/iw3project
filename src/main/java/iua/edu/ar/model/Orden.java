@@ -2,7 +2,6 @@ package iua.edu.ar.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "ordenes")
@@ -24,15 +26,17 @@ public class Orden implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(length = 100, nullable = true)
+	@Column(length = 100, nullable = false)
 	private double numeroOrden;
 
 	@Column(length = 100)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date fechaRecepcionPesajeInicial;
 
 	@Column(length = 100)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date fechaPrevistaCarga;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -52,13 +56,18 @@ public class Orden implements Serializable {
 	@Column(length = 50, nullable = true, unique = true)
 	private String codigoExterno;
 
+	public Orden() {
+
+	}
+
 	public Orden(Orden orden) {
 		this.codigoExterno = orden.codigoExterno;
 		this.numeroOrden = orden.numeroOrden;
 		this.camion = orden.getCamion();
 		this.chofer = orden.getChofer();
 		this.cliente = orden.getCliente();
-		this.producto = orden.getProducto();
+		this.fechaPrevistaCarga = orden.fechaPrevistaCarga;
+
 	}
 
 	// Getters and setters

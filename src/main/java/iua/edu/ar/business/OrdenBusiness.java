@@ -78,8 +78,7 @@ public class OrdenBusiness implements IOrdenBusiness {
 			throw new BusinessException(e);
 		}
 		if (!op.isPresent()) {
-			throw new NotFoundException(
-					"El producto con código externo " + codigoExterno + " no se encuentra en la BD");
+			throw new NotFoundException("La orden con código externo " + codigoExterno + " no se encuentra en la BD");
 		}
 		return op.get();
 	}
@@ -89,15 +88,15 @@ public class OrdenBusiness implements IOrdenBusiness {
 		Orden o = null;
 		try {
 			o = load(orden.getCodigoExterno());
-			o.setNumeroOrden(orden.getNumeroOrden());
-			o.setCamion(orden.getCamion());
-			o.setChofer(orden.getChofer());
-			o.setCliente(orden.getCliente());
-			o.setProducto(orden.getProducto());
 
 			// Colocar aquí los datos recibidos no opcionales
 		} catch (NotFoundException e) {
 			o = new Orden(orden);
+			o.setNumeroOrden(orden.getNumeroOrden());
+			o.setCamion(orden.getCamion());
+			o.setChofer(orden.getChofer());
+			o.setCliente(orden.getCliente());
+			o.setFechaPrevistaCarga(orden.getFechaPrevistaCarga());
 		}
 		return ordenDAO.save(o);
 	}

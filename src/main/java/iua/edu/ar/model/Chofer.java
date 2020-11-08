@@ -25,15 +25,8 @@ public class Chofer implements Serializable {
 	@Column(length = 100)
 	private String apellido;
 
-	@Column(length = 100, nullable = true)
+	@Column(length = 256, nullable = false)
 	private double documento;
-
-	/*
-	 * Comento para probar algo 
-	 * @ManyToOne(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "camion_id") private Camion camion;
-	 */
 
 	public String getNombre() {
 		return nombre;

@@ -20,7 +20,7 @@ public class Camion implements Serializable {
 	private long id;
 
 	@Column(length = 100)
-	private double patente;
+	private String patente;
 
 	@Column(length = 100, nullable = true)
 	private String descripcion;
@@ -36,11 +36,11 @@ public class Camion implements Serializable {
 		this.id = id;
 	}
 
-	public double getPatente() {
+	public String getPatente() {
 		return patente;
 	}
 
-	public void setPatente(double patente) {
+	public void setPatente(String patente) {
 		this.patente = patente;
 	}
 

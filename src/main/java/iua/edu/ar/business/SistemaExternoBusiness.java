@@ -11,10 +11,11 @@ import iua.edu.ar.model.persistence.SistemaExternoRepository;
 
 @Service
 public class SistemaExternoBusiness implements ISistemaExternoBusiness {
+			
 
 	@Autowired
 	private IOrdenBusiness ordenService;
-
+	
 	@Autowired
 	private SistemaExternoRepository sistemaExternoDAO;
 
@@ -33,6 +34,7 @@ public class SistemaExternoBusiness implements ISistemaExternoBusiness {
 
 		try {
 			sistemaExterno.setOrden(ordenService.asegurarOrden(sistemaExterno.getOrden()));
+			
 			sistemaExternoDAO.save(sistemaExterno);
 		} catch (Exception e) {
 			throw new BusinessException(e);

@@ -22,7 +22,7 @@ public class Cliente implements Serializable {
 	@Column(length = 100)
 	private String razonSocial;
 
-	@Column(length = 100, nullable = true)
+	@Column(length = 100, nullable = false)
 	private String contacto;
 
 	public long getId() {
