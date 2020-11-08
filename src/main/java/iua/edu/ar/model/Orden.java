@@ -14,8 +14,6 @@ import javax.persistence.Temporal;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Entity
 @Table(name = "ordenes")
 public class Orden implements Serializable {
@@ -34,7 +32,7 @@ public class Orden implements Serializable {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date fechaRecepcionPesajeInicial;
 
-	@Column(length = 100)
+	@Column(length = 100, nullable = false)
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date fechaPrevistaCarga;
@@ -51,6 +49,12 @@ public class Orden implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Chofer chofer;
 
+	@Column(length = 100)
+	private int estado;
+
+	@Column(length = 100, nullable = false)
+	private double preset;
+
 	// External code
 
 	@Column(length = 50, nullable = true, unique = true)
@@ -66,7 +70,9 @@ public class Orden implements Serializable {
 		this.camion = orden.getCamion();
 		this.chofer = orden.getChofer();
 		this.cliente = orden.getCliente();
+		this.producto = orden.getProducto();
 		this.fechaPrevistaCarga = orden.fechaPrevistaCarga;
+		this.preset = orden.preset;
 
 	}
 
@@ -142,6 +148,22 @@ public class Orden implements Serializable {
 
 	public void setCodigoExterno(String codigoExterno) {
 		this.codigoExterno = codigoExterno;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	public double getPreset() {
+		return preset;
+	}
+
+	public void setPreset(double preset) {
+		this.preset = preset;
 	}
 
 }

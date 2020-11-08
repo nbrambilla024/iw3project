@@ -97,6 +97,8 @@ public class OrdenBusiness implements IOrdenBusiness {
 			o.setChofer(orden.getChofer());
 			o.setCliente(orden.getCliente());
 			o.setFechaPrevistaCarga(orden.getFechaPrevistaCarga());
+			o.setPreset(orden.getPreset());
+			o.setEstado(orden.getEstado());
 		}
 		return ordenDAO.save(o);
 	}

@@ -1,5 +1,6 @@
 package iua.edu.ar.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,9 +23,12 @@ public class SistemaExterno {
 
 		if (getOrden().getCamion() == null)
 			return "El atributo 'Camion' es obligatorio";
-		
+
 		if (getOrden().getCliente() == null)
 			return "El atributo 'Cliente' es obligatorio";
+
+		if (getOrden().getProducto() == null)
+			return "El atributo 'Producto' es obligatorio";
 
 		if (getOrden().getCodigoExterno() == null || getOrden().getCodigoExterno().trim().length() == 0)
 			return "El atributo 'orden.codigoExterno' es obligatorio";
@@ -52,6 +56,16 @@ public class SistemaExterno {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
+
+	@ManyToOne
+	@JoinColumn(name = "producto_id")
+	private Producto producto;
+
+	@Column(length = 100, nullable = false)
+	private double preset;
+
+	@Column(length = 100)
+	private int estado;
 
 	public Long getId() {
 		return id;
@@ -91,6 +105,30 @@ public class SistemaExterno {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+	public double getPreset() {
+		return preset;
+	}
+
+	public void setPreset(double preset) {
+		this.preset = preset;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 
 }
