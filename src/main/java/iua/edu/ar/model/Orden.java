@@ -66,6 +66,7 @@ public class Orden implements Serializable {
 
 	public Orden(Orden orden) {
 		this.codigoExterno = orden.codigoExterno;
+		//
 		this.numeroOrden = orden.numeroOrden;
 		this.camion = orden.getCamion();
 		this.chofer = orden.getChofer();

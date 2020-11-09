@@ -26,7 +26,7 @@ public class Camion implements Serializable {
 	private String descripcion;
 
 	@Column(length = 100)
-	private double cisternado;
+	private int cisternado;
 
 	public long getId() {
 		return id;
@@ -52,11 +52,11 @@ public class Camion implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public double getCisternado() {
+	public int getCisternado() {
 		return cisternado;
 	}
 
-	public void setCisternado(double cisternado) {
+	public void setCisternado(int cisternado) {
 		this.cisternado = cisternado;
 	}
 
